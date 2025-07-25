@@ -1,0 +1,19 @@
+# Our Project Configuration
+
+# -- Project & Founder --
+cofounder_name: Chris
+product_name: "GrowthLogs"
+elevator_pitch: "An automated analytics platform that turns raw user data into actionable product insights for indie hackers."
+
+# -- Technical Stack --
+language: typescript
+framework: next.js
+package_manager: npm
+test_runner_command: "npm test"
+
+# -- Workflow & VCS --
+git_provider: github
+main_branch: main
+
+# -- Deployment --
+deployment_target: netlify
