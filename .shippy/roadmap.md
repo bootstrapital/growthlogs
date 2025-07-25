@@ -3,10 +3,11 @@
 This is the living document tracking the high-level state of our product.
 
 ## Shipped Features 🚀
-- *No features shipped yet.*
+- **Spec 001:** Minimal Experiment Tracking
+- **Spec 002:** Basic Experiment Management UI
 
 ## In Progress 🏗️
-- **Spec 001:** Minimal Experiment Tracking (`feature/001-minimal-experiment-tracking`)
+- *No features in progress yet.*
 
 ## Planned Features 📋
 - *No features planned yet.*

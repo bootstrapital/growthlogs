@@ -3,11 +3,11 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import { Experiment } from '@/types/experiment';
 
-const experimentsFilePath = path.join(process.cwd(), 'gl/data/experiments.json');
+const experimentsFilePath = path.join(process.cwd(), 'data/experiments.json');
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const fileContents = await fs.readFile(experimentsFilePath, 'utf8');
     const experiments: Experiment[] = JSON.parse(fileContents);
     const experiment = experiments.find(exp => exp.id === id);
