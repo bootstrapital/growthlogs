@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "id": "1753414774925",
+    "name": "Experiment No. 1",
+    "hypothesis": "I think this might work",
+    "goalMetrics": "number of experiments +1",
+    "targetAudience": "Me",
+    "variants": "a: nothing\nb: something\n",
+    "startDate": "2025-07-20",
+    "endDate": "2025-08-01",
+    "status": "Planning",
+    "learnings": "",
+    "nextSteps": "",
+    "resultsDashboardLink": ""
+  }
+]
