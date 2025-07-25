@@ -9,4 +9,4 @@ This is the living document tracking the high-level state of our product.
 - **Spec 001:** Minimal Experiment Tracking (`feature/001-minimal-experiment-tracking`)
 
 ## Planned Features 📋
-- *No features planned yet.*
+- **Spec 002:** Basic Experiment Management UI

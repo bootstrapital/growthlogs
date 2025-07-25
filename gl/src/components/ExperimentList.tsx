@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Experiment } from '@/types/experiment';
+import Link from 'next/link';
 
 const ExperimentList: React.FC = () => {
   const [experiments, setExperiments] = useState<Experiment[]>([]);
@@ -35,11 +36,12 @@ const ExperimentList: React.FC = () => {
       <ul className="divide-y divide-gray-200">
         {experiments.map((experiment) => (
           <li key={experiment.id} className="py-4 flex justify-between items-center">
-            <div>
-              <p className="text-lg font-medium text-gray-900">{experiment.name}</p>
-              <p className="text-sm text-gray-500">Status: {experiment.status}</p>
-            </div>
-            {/* TODO: Add link to experiment detail page */}
+            <Link href={`/experiments/${experiment.id}`} className="flex-grow">
+              <div>
+                <p className="text-lg font-medium text-gray-900">{experiment.name}</p>
+                <p className="text-sm text-gray-500">Status: {experiment.status}</p>
+              </div>
+            </Link>
           </li>
         ))}
       </ul>

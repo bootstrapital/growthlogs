@@ -1,9 +1,9 @@
 # Our Project Configuration
 
 # -- Project & Founder --
-cofounder_name: Chris
+cofounder_name: "Chris Davis"
 product_name: "GrowthLogs"
-elevator_pitch: "An automated analytics platform that turns raw user data into actionable product insights for indie hackers."
+elevator_pitch: "GrowthLogs helps growth practitioners track, manage, and learn from every experiment with ease, moving beyond messy spreadsheets to provide a centralized platform for clear hypotheses, real-time status updates, and actionable insights."
 
 # -- Technical Stack --
 language: typescript
