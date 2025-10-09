@@ -8,69 +8,59 @@ const frontmatter = {
 }
 ---
 <ToolDetailTemplate frontmatter={frontmatter}>
-    <div slot="tool">
-        <div class="columns">
-            <div class="column is-half">
-                <div class="box">
-                    <h2 class="title is-4">Variation A (Control)</h2>
-                    <div class="field">
-                        <label class="label">Visitors</label>
-                        <div class="control">
-                            <input id="visitors-a" class="input" type="number" placeholder="e.g., 1000">
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label">Conversions</label>
-                        <div class="control">
-                            <input id="conversions-a" class="input" type="number" placeholder="e.g., 100">
-                        </div>
-                    </div>
+    <div slot="tool" class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-lg border border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Variation A (Control)</h2>
+                <div class="mb-4">
+                    <label for="visitors-a" class="block text-sm font-medium text-gray-700">Visitors</label>
+                    <input id="visitors-a" type="number" placeholder="e.g., 1000" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-2 px-3">
+                </div>
+                <div class="mb-4">
+                    <label for="conversions-a" class="block text-sm font-medium text-gray-700">Conversions</label>
+                    <input id="conversions-a" type="number" placeholder="e.g., 100" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-2 px-3">
                 </div>
             </div>
-            <div class="column is-half">
-                <div class="box">
-                    <h2 class="title is-4">Variation B (Challenger)</h2>
-                    <div class="field">
-                        <label class="label">Visitors</label>
-                        <div class="control">
-                            <input id="visitors-b" class="input" type="number" placeholder="e.g., 1000">
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label class="label">Conversions</label>
-                        <div class="control">
-                            <input id="conversions-b" class="input" type="number" placeholder="e.g., 120">
-                        </div>
-                    </div>
+            <div class="bg-white p-6 rounded-lg border border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Variation B (Challenger)</h2>
+                <div class="mb-4">
+                    <label for="visitors-b" class="block text-sm font-medium text-gray-700">Visitors</label>
+                    <input id="visitors-b" type="number" placeholder="e.g., 1000" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-2 px-3">
+                </div>
+                <div class="mb-4">
+                    <label for="conversions-b" class="block text-sm font-medium text-gray-700">Conversions</label>
+                    <input id="conversions-b" type="number" placeholder="e.g., 120" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-2 px-3">
                 </div>
             </div>
         </div>
 
-        <div class="has-text-centered">
-            <button id="calculate" class="button is-primary is-large">Calculate Significance</button>
+        <div class="text-center mb-8">
+            <button id="calculate" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                Calculate Significance
+            </button>
         </div>
 
-        <div id="results" class="section has-text-centered" style="display: none;">
-            <h2 class="title is-3">Results</h2>
-            <div class="columns">
-                <div class="column">
-                    <p class="heading">Conversion Rate (A)</p>
-                    <p id="cr-a" class="title is-4">-</p>
+        <div id="results" class="bg-white p-6 rounded-lg border border-gray-200" style="display: none;">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4 text-center">Results</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div>
+                    <p class="text-sm font-medium text-gray-500">Conversion Rate (A)</p>
+                    <p id="cr-a" class="mt-1 text-lg font-bold text-gray-900">-</p>
                 </div>
-                <div class="column">
-                    <p class="heading">Conversion Rate (B)</p>
-                    <p id="cr-b" class="title is-4">-</p>
+                <div>
+                    <p class="text-sm font-medium text-gray-500">Conversion Rate (B)</p>
+                    <p id="cr-b" class="mt-1 text-lg font-bold text-gray-900">-</p>
                 </div>
-                <div class="column">
-                    <p class="heading">P-value</p>
-                    <p id="p-value" class="title is-4">-</p>
+                <div>
+                    <p class="text-sm font-medium text-gray-500">P-value</p>
+                    <p id="p-value" class="mt-1 text-lg font-bold text-gray-900">-</p>
                 </div>
-                <div class="column">
-                    <p class="heading">Z-score</p>
-                    <p id="z-score" class="title is-4">-</p>
+                <div>
+                    <p class="text-sm font-medium text-gray-500">Z-score</p>
+                    <p id="z-score" class="mt-1 text-lg font-bold text-gray-900">-</p>
                 </div>
             </div>
-            <div class="notification is-info">
+            <div class="mt-6 p-4 rounded-md bg-blue-50 text-blue-700 text-center">
                 <p id="conclusion"></p>
             </div>
         </div>
@@ -78,10 +68,10 @@ const frontmatter = {
 
     <p>An A/B test calculator is a statistical tool that helps you determine whether the results of an A/B test are statistically significant. In other words, it tells you whether the difference in performance between two variations of a webpage, email, or other marketing asset is likely due to chance or to the changes you made.</p>
 
-    <h3 class="title is-4">How to Use the Calculator</h3>
+    <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-4">How to Use the Calculator</h3>
     <p>To use the calculator, simply enter the number of visitors and conversions for each variation of your test. The calculator will then tell you the conversion rate for each variation, the difference in conversion rates, and whether the difference is statistically significant.</p>
 
-    <h3 class="title is-4">What is Statistical Significance?</h3>
+    <h3 class="text-xl font-semibold text-gray-900 mt-8 mb-4">What is Statistical Significance?</h3>
     <p>Statistical significance is a measure of how likely it is that the results of a test are not due to chance. A statistically significant result is one that is unlikely to have occurred by chance. In A/B testing, a statistically significant result means that the difference in performance between the two variations of your test is likely due to the changes you made, and not to random chance.</p>
 
     <script>
