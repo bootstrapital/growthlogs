@@ -1,0 +1,35 @@
+--- 
+// src/layouts/HubArchiveTemplate.astro
+import Layout from './Layout.astro';
+import Card from '../components/Card.astro';
+
+const { frontmatter } = Astro.props;
+const { title, description, items } = frontmatter;
+---
+<Layout title={title} description={description}>
+    <section class="section">
+        <div class="container">
+            <h1 class="title is-1">{title}</h1>
+            <p class="subtitle is-4">{description}</p>
+            <hr>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="columns is-multiline">
+                {items && items.map(item => (
+                    <div class="column is-one-third">
+                        <Card 
+                            title={item.title} 
+                            description={item.description}
+                            url={item.url}
+                            author=""
+                            date=""
+                        />
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+</Layout>

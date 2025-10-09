@@ -1,0 +1,29 @@
+--- 
+// src/pages/tools/index.astro
+import HubArchiveTemplate from '../../layouts/HubArchiveTemplate.astro';
+
+const tools = [
+    {
+        title: 'A/B Test Calculator',
+        description: 'Calculate the statistical significance of your A/B tests.',
+        url: '/tools/ab-test-calculator'
+    },
+    {
+        title: 'CAC Calculator',
+        description: 'Calculate your Customer Acquisition Cost to understand your marketing profitability.',
+        url: '#'
+    },
+    {
+        title: 'LTV Calculator',
+        description: 'Figure out what a customer is worth to your business over their lifetime.',
+        url: '#'
+    }
+];
+
+const frontmatter = {
+    title: 'Marketing Tools',
+    description: 'A collection of free, interactive tools to help you with your marketing efforts.',
+    items: tools
+}
+---
+<HubArchiveTemplate frontmatter={frontmatter} />

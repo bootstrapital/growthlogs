@@ -1,0 +1,49 @@
+--- 
+// src/layouts/ToolDetailTemplate.astro
+import Layout from './Layout.astro';
+const { frontmatter } = Astro.props;
+---
+<Layout title={frontmatter.title} description={frontmatter.description}>
+    <div class="columns is-centered">
+        <div class="column is-three-quarters">
+            <h1 class="title is-1">{frontmatter.title}</h1>
+            <p class="subtitle">{frontmatter.description}</p>
+            <hr/>
+
+            <!-- 1. Interactive Tool Element -->
+            <section id="tool-element" class="section">
+                <div class="content">
+                    <h2 class="title is-3">Interactive Tool</h2>
+                    <slot name="tool" />
+                </div>
+            </section>
+
+            <!-- 2. Explainer Section (Content from Markdown) -->
+            <section id="explainer" class="section content">
+                <h2 class="title is-3">How It Works & Why It Matters</h2>
+                <slot />
+            </section>
+
+            <!-- 3. Dynamic LLM Prompt Block -->
+            <section id="dynamic-llm-prompt" class="section">
+                <div class="notification">
+                    <h3 class="title is-4">AI Prompt for Deeper Analysis</h3>
+                    <p>Copy the prompt below and paste it into your favorite LLM (like ChatGPT or Claude) for a more detailed analysis based on your results.</p>
+                    <pre class="mt-4"><code id="llm-prompt-text">This is a placeholder for a dynamically generated LLM prompt.</code></pre>
+                </div>
+            </section>
+
+            <!-- 4. Affiliate Recommendations Section -->
+            <section id="affiliate-recommendations" class="section">
+                <div class="content">
+                    <h2 class="title is-3">Recommended Products</h2>
+                    <p>This section will contain affiliate links to recommended products, likely managed via Markdown content or a data file.</p>
+                    <div class="box has-background-white">
+                        <p><strong>Placeholder:</strong> Recommended affiliate product link goes here.</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</Layout>

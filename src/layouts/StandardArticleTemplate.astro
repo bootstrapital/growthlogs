@@ -1,0 +1,33 @@
+---
+// src/layouts/StandardArticleTemplate.astro
+import Layout from './Layout.astro';
+const { frontmatter } = Astro.props;
+---
+<Layout title={frontmatter.title} description={frontmatter.description}>
+    <div class="columns">
+        <!-- Main Content -->
+        <div class="column is-three-quarters">
+            <div class="content">
+                <h1 class="title is-1">{frontmatter.title}</h1>
+                <p class="subtitle">{frontmatter.description}</p>
+                <hr>
+                <slot />
+            </div>
+        </div>
+
+        <!-- Sidebar for Related Posts or CTAs -->
+        <div class="column is-one-quarter">
+            <aside class="box">
+                <h4 class="title is-4">Related Content</h4>
+                <ul>
+                    <li><a href="#">Related Post 1</a></li>
+                    <li><a href="#">Related Post 2</a></li>
+                </ul>
+                <hr>
+                <h4 class="title is-4">Affiliate CTA</h4>
+                <p>Placeholder for a compelling call-to-action for an affiliate product.</p>
+                <a class="button is-primary mt-3">Check it out</a>
+            </aside>
+        </div>
+    </div>
+</Layout>

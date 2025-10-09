@@ -1,0 +1,141 @@
+--- 
+// src/pages/tools/ab-test-calculator.astro
+import ToolDetailTemplate from '../../layouts/ToolDetailTemplate.astro';
+
+const frontmatter = {
+    title: 'A/B Test Calculator',
+    description: 'Calculate the statistical significance of your A/B tests.'
+}
+---
+<ToolDetailTemplate frontmatter={frontmatter}>
+    <div slot="tool">
+        <div class="columns">
+            <div class="column is-half">
+                <div class="box">
+                    <h2 class="title is-4">Variation A (Control)</h2>
+                    <div class="field">
+                        <label class="label">Visitors</label>
+                        <div class="control">
+                            <input id="visitors-a" class="input" type="number" placeholder="e.g., 1000">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Conversions</label>
+                        <div class="control">
+                            <input id="conversions-a" class="input" type="number" placeholder="e.g., 100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-half">
+                <div class="box">
+                    <h2 class="title is-4">Variation B (Challenger)</h2>
+                    <div class="field">
+                        <label class="label">Visitors</label>
+                        <div class="control">
+                            <input id="visitors-b" class="input" type="number" placeholder="e.g., 1000">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Conversions</label>
+                        <div class="control">
+                            <input id="conversions-b" class="input" type="number" placeholder="e.g., 120">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="has-text-centered">
+            <button id="calculate" class="button is-primary is-large">Calculate Significance</button>
+        </div>
+
+        <div id="results" class="section has-text-centered" style="display: none;">
+            <h2 class="title is-3">Results</h2>
+            <div class="columns">
+                <div class="column">
+                    <p class="heading">Conversion Rate (A)</p>
+                    <p id="cr-a" class="title is-4">-</p>
+                </div>
+                <div class="column">
+                    <p class="heading">Conversion Rate (B)</p>
+                    <p id="cr-b" class="title is-4">-</p>
+                </div>
+                <div class="column">
+                    <p class="heading">P-value</p>
+                    <p id="p-value" class="title is-4">-</p>
+                </div>
+                <div class="column">
+                    <p class="heading">Z-score</p>
+                    <p id="z-score" class="title is-4">-</p>
+                </div>
+            </div>
+            <div class="notification is-info">
+                <p id="conclusion"></p>
+            </div>
+        </div>
+    </div>
+
+    <p>An A/B test calculator is a statistical tool that helps you determine whether the results of an A/B test are statistically significant. In other words, it tells you whether the difference in performance between two variations of a webpage, email, or other marketing asset is likely due to chance or to the changes you made.</p>
+
+    <h3 class="title is-4">How to Use the Calculator</h3>
+    <p>To use the calculator, simply enter the number of visitors and conversions for each variation of your test. The calculator will then tell you the conversion rate for each variation, the difference in conversion rates, and whether the difference is statistically significant.</p>
+
+    <h3 class="title is-4">What is Statistical Significance?</h3>
+    <p>Statistical significance is a measure of how likely it is that the results of a test are not due to chance. A statistically significant result is one that is unlikely to have occurred by chance. In A/B testing, a statistically significant result means that the difference in performance between the two variations of your test is likely due to the changes you made, and not to random chance.</p>
+
+    <script>
+        // A/B Test Calculator Logic
+        document.getElementById('calculate').addEventListener('click', () => {
+            const visitorsA = parseInt(document.getElementById('visitors-a').value);
+            const conversionsA = parseInt(document.getElementById('conversions-a').value);
+            const visitorsB = parseInt(document.getElementById('visitors-b').value);
+            const conversionsB = parseInt(document.getElementById('conversions-b').value);
+
+            if (isNaN(visitorsA) || isNaN(conversionsA) || isNaN(visitorsB) || isNaN(conversionsB)) {
+                alert('Please fill in all fields with valid numbers.');
+                return;
+            }
+
+            const crA = conversionsA / visitorsA;
+            const crB = conversionsB / visitorsB;
+
+            const pooledCr = (conversionsA + conversionsB) / (visitorsA + visitorsB);
+            const se = Math.sqrt(pooledCr * (1 - pooledCr) * (1 / visitorsA + 1 / visitorsB));
+            const zScore = (crB - crA) / se;
+
+            // Two-tailed test
+            const pValue = 2 * (1 - standardNormalCdf(Math.abs(zScore)));
+
+            document.getElementById('cr-a').textContent = `${(crA * 100).toFixed(2)}%`;
+            document.getElementById('cr-b').textContent = `${(crB * 100).toFixed(2)}%`;
+            document.getElementById('p-value').textContent = pValue.toFixed(4);
+            document.getElementById('z-score').textContent = zScore.toFixed(4);
+
+            let conclusion = '';
+            if (pValue < 0.05) {
+                conclusion = `Variation B is statistically significant with a ${((crB - crA) / crA * 100).toFixed(2)}% improvement.`;
+            } else {
+                conclusion = 'The result is not statistically significant.';
+            }
+            document.getElementById('conclusion').textContent = conclusion;
+
+            document.getElementById('results').style.display = 'block';
+
+            // Update LLM prompt
+            const llmPrompt = `I ran an A/B test with the following results:\n\nVariation A (Control):\nVisitors: ${visitorsA}\nConversions: ${conversionsA}\nConversion Rate: ${(crA * 100).toFixed(2)}%\n\nVariation B (Challenger):\nVisitors: ${visitorsB}\nConversions: ${conversionsB}\nConversion Rate: ${(crB * 100).toFixed(2)}%\n\nThe p-value is ${pValue.toFixed(4)} and the z-score is ${zScore.toFixed(4)}.\n\n${conclusion}\n\nWhat are some possible next steps?`;
+            document.getElementById('llm-prompt-text').textContent = llmPrompt;
+        });
+
+        // Standard Normal Cumulative Distribution Function
+        function standardNormalCdf(x) {
+            const t = 1 / (1 + 0.2316419 * Math.abs(x));
+            const d = 0.3989423 * Math.exp(-x * x / 2);
+            let prob = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+            if (x > 0) {
+                prob = 1 - prob;
+            }
+            return prob;
+        }
+    </script>
+</ToolDetailTemplate>

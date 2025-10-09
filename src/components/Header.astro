@@ -1,0 +1,62 @@
+
+--- 
+// src/components/Header.astro
+---
+<header class="section">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                    <span class="has-text-weight-bold is-size-4">Growth Logs</span>
+                </a>
+
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <a href="/tools/" class="navbar-item">Tools</a>
+                    <a href="/experiments/" class="navbar-item">Experiments</a>
+                    <a href="/prompts/" class="navbar-item">Prompts</a>
+                    <a href="/guides/" class="navbar-item">Guides</a>
+                    <a href="/blog/" class="navbar-item">Blog</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<script>
+    // Simple vanilla JS for mobile navbar toggle
+    document.addEventListener('DOMContentLoaded', () => {
+        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        if ($navbarBurgers.length > 0) {
+            $navbarBurgers.forEach( el => {
+                el.addEventListener('click', () => {
+                    const target = el.dataset.target;
+                    const $target = document.getElementById(target);
+                    el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+                });
+            });
+        }
+    });
+</script>
+
+<style>
+    .navbar {
+        border-radius: 8px;
+        background-color: var(--grayscale-very-dark-gray);
+    }
+    .navbar-item,
+    .navbar-burger span {
+        color: var(--grayscale-light-bg);
+    }
+    .navbar-item:hover {
+        color: var(--grayscale-white);
+    }
+</style>

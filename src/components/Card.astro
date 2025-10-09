@@ -1,0 +1,51 @@
+--- 
+// src/components/Card.astro
+export interface Props {
+    title: string;
+    description: string;
+    url: string;
+    author: string;
+    date: string;
+}
+
+const { title, description, url, author, date } = Astro.props;
+---
+<div class="card">
+    <div class="card-content">
+        <div class="media">
+            <div class="media-content">
+                <p class="title is-4">{title}</p>
+                <p class="subtitle is-6">By {author} on {date}</p>
+            </div>
+        </div>
+
+        <div class="content">
+            {description}
+            <br>
+            <a href={url} class="button is-primary is-outlined is-small mt-4">Read More</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border: 1px solid var(--grayscale-border);
+        box-shadow: none;
+        background-color: var(--grayscale-light-bg);
+        border-radius: 8px;
+    }
+    .card .title {
+        color: var(--grayscale-near-black);
+    }
+    .card .subtitle {
+        color: var(--grayscale-dark-gray);
+    }
+    .button.is-primary.is-outlined {
+        border-color: var(--grayscale-dark-gray);
+        color: var(--grayscale-dark-gray);
+    }
+    .button.is-primary.is-outlined:hover {
+        background-color: var(--grayscale-dark-gray);
+        color: var(--grayscale-light-bg);
+    }
+</style>

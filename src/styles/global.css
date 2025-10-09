@@ -1,0 +1,58 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --grayscale-light-gray: #dcdcdc;
+    --grayscale-dark-gray: #4a4a4a;
+    --grayscale-very-dark-gray: #363636;
+    --grayscale-near-black: #222222;
+    --grayscale-white: #ffffff;
+    --grayscale-light-bg: #f5f5f5;
+    --grayscale-border: #dbdbdb;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--grayscale-white);
+    color: var(--grayscale-dark-gray);
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+    background-color: var(--grayscale-white);
+}
+
+footer {
+    flex-shrink: 0;
+}
+
+.content h1,
+.content h2,
+.content h3,
+.content h4,
+.content h5,
+.content h6 {
+    color: var(--grayscale-near-black);
+}
+
+.title {
+    color: var(--grayscale-dark-gray);
+}
+
+/* Add a little more space between sections */
+.section {
+    padding: 3rem 1.5rem;
+}
+
+/* Style for the sticky Table of Contents in InstructionalPostTemplate */
+.is-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 20px; /* Adjust this value based on your header height */
+}
