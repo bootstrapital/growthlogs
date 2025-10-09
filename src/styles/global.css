@@ -1,62 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-:root {
-    --brand-primary: #4f46e5;
-    --brand-secondary: #ec4899;
-    --gray-900: #111827;
-    --gray-700: #374151;
-    --gray-500: #6b7280;
-    --gray-400: #9ca3af;
-    --gray-300: #d1d5db;
-    --gray-200: #e5e7eb;
-    --gray-100: #f3f4f6;
-    --gray-50: #f9fafb;
-    --white: #ffffff;
-}
-
-html, body {
-    height: 100%;
-}
-
 body {
     font-family: 'Inter', sans-serif;
-    background-color: var(--white);
-    color: var(--gray-700);
-    display: flex;
-    flex-direction: column;
-}
-
-main {
-    flex: 1 0 auto;
-    background-color: var(--white);
-}
-
-footer {
-    flex-shrink: 0;
-}
-
-.content h1,
-.content h2,
-.content h3,
-.content h4,
-.content h5,
-.content h6 {
-    color: var(--gray-900);
-}
-
-.title {
-    color: var(--gray-900);
-}
-
-/* Add a little more space between sections */
-.section {
-    padding: 3rem 1.5rem;
-}
-
-/* Style for the sticky Table of Contents in InstructionalPostTemplate */
-.is-sticky {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 20px; /* Adjust this value based on your header height */
 }

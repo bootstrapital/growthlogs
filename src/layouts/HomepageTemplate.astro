@@ -1,216 +1,156 @@
-
---- 
+---
 // src/layouts/HomepageTemplate.astro
 import Layout from './Layout.astro';
 import Card from '../components/Card.astro';
 ---
-<style>
-    .button.is-primary {
-        background-color: var(--brand-primary);
-    }
-    .button.is-primary:hover {
-        background-color: var(--brand-primary);
-    }
-    .section.pillars {
-        background-color: var(--grayscale-bg);
-    }
-    .pillar-box {
-        border: 1px solid var(--grayscale-border);
-        padding: 2rem;
-        border-radius: 8px;
-        height: 100%;
-        background-color: var(--grayscale-light-bg);
-    }
-    .pillar-icon {
-        height: 32px;
-        width: 32px;
-        color: var(--brand-primary);
-        margin-bottom: 1rem;
-    }
-    .section.newsletter {
-        background-color: var(--brand-primary);
-    }
-    .section.newsletter .title,
-    .section.newsletter .subtitle {
-        color: white;
-    }
-</style>
 <Layout title="Growth Logs | Radically Simple Tools for Builders" description="A free, no-nonsense library of tools, experiments, guides, and prompts to help you build your growth engine.">
     <!-- 1. The Hero Section -->
-    <section class="section">
-        <div class="container">
-            <div class="columns is-vcentered">
-                <div class="column is-5 has-text-left">
-                    <h1 class="title is-1">Radically Simple Tools for Builders.</h1>
-                    <p class="subtitle is-5">A free, no-nonsense library of tools, experiments, guides, and prompts to help you build your growth engine.</p>
-                    <div class="field has-addons">
-                        <div class="control">
-                            <input class="input" type="text" placeholder='e.g., "CAC Calculator"'>
-                        </div>
-                        <div class="control">
-                            <a class="button is-primary">Search</a>
-                        </div>
+    <section class="py-16 md:py-24">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-center md:text-left">
+                    <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-4">Radically Simple Tools for Builders.</h1>
+                    <p class="text-lg md:text-xl text-gray-600 mb-8">A free, no-nonsense library of tools, experiments, guides, and prompts to help you build your growth engine.</p>
+                    <div class="flex max-w-md mx-auto md:mx-0">
+                        <input type="text" placeholder='e.g., "CAC Calculator"' class="w-full px-4 py-3 rounded-l-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-800">
+                        <button class="bg-gray-800 text-white font-semibold px-6 py-3 rounded-r-md hover:bg-gray-700">Search</button>
                     </div>
-                    <p class="is-size-7">Trusted by builders at Google, Stripe, Notion, and thousands of startups.</p>
+                    <p class="text-sm text-gray-500 mt-4">Trusted by builders at Google, Stripe, Notion, and thousands of startups.</p>
                 </div>
-                <div class="column is-7">
-                    <figure class="image">
-                        <img src="/hero.svg" alt="Growth Logs Hero Image" />
-                    </figure>
+                <div>
+                    <img src="/hero.svg" alt="Hero Image" class="rounded-lg shadow-lg">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- 2. The Pillars Section -->
-    <section class="section pillars">
-        <div class="container">
-            <h2 class="title is-2 has-text-centered">Your Growth Toolkit</h2>
-            <div class="columns mt-5">
-                <div class="column">
-                    <div class="pillar-box has-text-centered">
-                        <img src="/icons/tools.svg" alt="Tools Icon" class="pillar-icon" />
-                        <h3 class="title is-4">Free Tools</h3>
-                        <p>Instant answers to your most pressing growth questions.</p>
-                    </div>
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900">Your Growth Toolkit</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-8 rounded-lg border border-gray-200 text-center">
+                    <img src="/icons/tools.svg" alt="Tools Icon" class="h-10 w-10 mx-auto mb-4 text-gray-800" />
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Free Tools</h3>
+                    <p class="text-gray-600">Instant answers to your most pressing growth questions.</p>
                 </div>
-                <div class="column">
-                    <div class="pillar-box has-text-centered">
-                        <img src="/icons/guides.svg" alt="Guides Icon" class="pillar-icon" />
-                        <h3 class="title is-4">Growth Guides</h3>
-                        <p>Expert, in-depth reviews and comparisons of the best tools on the market.</p>
-                    </div>
+                <div class="bg-white p-8 rounded-lg border border-gray-200 text-center">
+                    <img src="/icons/guides.svg" alt="Guides Icon" class="h-10 w-10 mx-auto mb-4 text-gray-800" />
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Growth Guides</h3>
+                    <p class="text-gray-600">Expert, in-depth reviews of the best tools on the market.</p>
                 </div>
-                <div class="column">
-                    <div class="pillar-box has-text-centered">
-                        <img src="/icons/experiments.svg" alt="Experiments Icon" class="pillar-icon" />
-                        <h3 class="title is-4">Experiment Library</h3>
-                        <p>Proven playbooks and ideas to inspire your next A/B test.</p>
-                    </div>
+                <div class="bg-white p-8 rounded-lg border border-gray-200 text-center">
+                    <img src="/icons/experiments.svg" alt="Experiments Icon" class="h-10 w-10 mx-auto mb-4 text-gray-800" />
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Experiment Library</h3>
+                    <p class="text-gray-600">Proven playbooks and ideas to inspire your next A/B test.</p>
                 </div>
-                <div class="column">
-                    <div class="pillar-box has-text-centered">
-                        <img src="/icons/prompts.svg" alt="Prompts Icon" class="pillar-icon" />
-                        <h3 class="title is-4">Prompt Library</h3>
-                        <p>Leverage AI to accelerate your content and strategy.</p>
-                    </div>
+                <div class="bg-white p-8 rounded-lg border border-gray-200 text-center">
+                    <img src="/icons/prompts.svg" alt="Prompts Icon" class="h-10 w-10 mx-auto mb-4 text-gray-800" />
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Prompt Library</h3>
+                    <p class="text-gray-600">Leverage AI to accelerate your content and strategy.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- 3. Featured Tools Section -->
-    <section class="section">
-        <div class="container">
-            <h2 class="title is-2 has-text-centered">Our Most Popular Tools</h2>
-            <div class="columns mt-5">
-                <div class="column">
-                    <Card 
-                        title="A/B Test Calculator"
-                        description="Instantly know if your experiment results are statistically significant."
-                        url="/tools/ab-test-calculator"
-                        author=""
-                        date=""
-                    />
-                </div>
-                <div class="column">
-                    <Card 
-                        title="CAC Calculator"
-                        description="Calculate your Customer Acquisition Cost to understand your marketing profitability."
-                        url="#"
-                        author=""
-                        date=""
-                    />
-                </div>
-                <div class="column">
-                    <Card 
-                        title="LTV Calculator"
-                        description="Figure out what a customer is worth to your business over their lifetime."
-                        url="#"
-                        author=""
-                        date=""
-                    />
-                </div>
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900">Our Most Popular Tools</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <Card
+                    title="A/B Test Calculator"
+                    description="Instantly know if your experiment results are statistically significant."
+                    url="/tools/ab-test-calculator"
+                    author=""
+                    date=""
+                />
+                <Card
+                    title="CAC Calculator"
+                    description="Calculate your Customer Acquisition Cost to understand your marketing profitability."
+                    url="#"
+                    author=""
+                    date=""
+                />
+                <Card
+                    title="LTV Calculator"
+                    description="Figure out what a customer is worth to your business over their lifetime."
+                    url="#"
+                    author=""
+                    date=""
+                />
             </div>
         </div>
     </section>
 
     <!-- 4. Latest Guides & Articles Section -->
-    <section class="section">
-        <div class="container">
-            <h2 class="title is-2 has-text-centered">Latest from the Playbook</h2>
-            <div class="columns mt-5">
-                <div class="column">
-                    <Card 
-                        title="CODE-FIRST CONTENT MODELING"
-                        description="Explore the advantages of code-first schemas and how Scalar brings structure and flexibility to your stack."
-                        url="#"
-                        author="Rob Austin"
-                        date="Apr 11, 2025"
-                    />
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900">Latest from the Playbook</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <Card
+                    title="CODE-FIRST CONTENT MODELING"
+                    description="Explore the advantages of code-first schemas and how Scalar brings structure and flexibility to your stack."
+                    url="#"
+                    author="Rob Austin"
+                    date="Apr 11, 2025"
+                />
+                <Card
+                    title="HOW SCALAR GENERATES GRAPHQL APIS INSTANTLY"
+                    description="Learn how Scalar turns your content models into ready-to-query GraphQL endpoints - no backend setup required."
+                    url="#"
+                    author="Fedir Davydov"
+                    date="Apr 8, 2025"
+                />
+                <Card
+                    title="SCALING CONTENT TEAMS WITHOUT SLOWING DOWN"
+                    description="Role-based permissions, draft workflows, and live preview - how Scalar empowers content editors to move fast without breaking things."
+                    url="#"
+                    author="Yassine Zaanouni"
+                    date="Apr 5, 2025"
+                />
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. The Manifesto Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900">A Different Kind of Growth Resource</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Radically Practical</h3>
+                    <p class="text-gray-600">No fluff, no gurus. Just actionable tools and guides that work in the real world. We are practitioners, just like you.</p>
                 </div>
-                <div class="column">
-                    <Card 
-                        title="HOW SCALAR GENERATES GRAPHQL APIS INSTANTLY"
-                        description="Learn how Scalar turns your content models into ready-to-query GraphQL endpoints - no backend setup required."
-                        url="#"
-                        author="Fedir Davydov"
-                        date="Apr 8, 2025"
-                    />
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Built for Builders</h3>
+                    <p class="text-gray-600">Whether you're a solo founder, a marketer on a small team, or a product manager, our content is designed for people who build and ship.</p>
                 </div>
-                <div class="column">
-                    <Card 
-                        title="SCALING CONTENT TEAMS WITHOUT SLOWING DOWN"
-                        description="Role-based permissions, draft workflows, and live preview - how Scalar empowers content editors to move fast without breaking things."
-                        url="#"
-                        author="Yassine Zaanouni"
-                        date="Apr 5, 2025"
-                    />
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Transparently Funded</h3>
+                    <p class="text-gray-600">We are 100% reader-supported. We recommend tools we genuinely believe in. If you purchase through one of our affiliate links, we may earn a commission at no extra cost to you. It's how we keep the lights on.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 5. The Manifesto / "Why Growth Logs?" Section -->
-    <section class="section">
-        <div class="container">
-            <div class="content has-text-centered">
-                <h2 class="title is-2">A Different Kind of Growth Resource</h2>
-            </div>
-            <div class="columns is-multiline mt-5">
-                <div class="column is-one-third">
-                    <h3 class="title is-4">Radically Practical</h3>
-                    <p>No fluff, no gurus. Just actionable tools and guides that work in the real world. We are practitioners, just like you.</p>
-                </div>
-                <div class="column is-one-third">
-                    <h3 class="title is-4">Built for Builders</h3>
-                    <p>Whether you're a solo founder, a marketer on a small team, or a product manager, our content is designed for people who build and ship.</p>
-                </div>
-                <div class="column is-one-third">
-                    <h3 class="title is-4">Transparently Funded</h3>
-                    <p>We are 100% reader-supported. We recommend tools we genuinely believe in. If you purchase through one of our affiliate links, we may earn a commission at no extra cost to you. It's how we keep the lights on.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 6. Final Call-to-Action (Newsletter Signup) -->
-    <section class="section newsletter">
-        <div class="container">
-            <div class="columns is-vcentered">
-                <div class="column is-6">
-                    <h2 class="title is-2">Get the Best of Growth Logs</h2>
-                    <p class="subtitle is-5">Join our newsletter for the latest tools, guides, and experiments.</p>
-                </div>
-                <div class="column is-5 is-offset-1">
-                    <div class="field has-addons">
-                        <div class="control is-expanded">
-                            <input class="input" type="email" placeholder="Enter your email">
-                        </div>
-                        <div class="control">
-                            <a class="button is-light is-outlined">Subscribe</a>
-                        </div>
-                    </div>
+    <!-- 6. Newsletter Signup Section -->
+    <section class="py-16 bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="max-w-2xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white">Get the Best of Growth Logs</h2>
+                <p class="text-lg text-gray-300 mt-4 mb-8">Join our newsletter for the latest tools, guides, and experiments.</p>
+                <div class="flex max-w-md mx-auto">
+                    <input type="email" placeholder="Enter your email" class="w-full px-4 py-3 rounded-l-md border-none focus:outline-none focus:ring-2 focus:ring-gray-500">
+                    <button class="bg-gray-600 text-white font-semibold px-6 py-3 rounded-r-md hover:bg-gray-500">Subscribe</button>
                 </div>
             </div>
         </div>
