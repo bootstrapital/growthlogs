@@ -1,0 +1,433 @@
+---
+// src/pages/tools/ab-test-calculator/index.astro
+import ToolDetailTemplate from "../../../layouts/ToolDetailTemplate.astro";
+// import { Content as AbTestExplainer } from "./explainer.md"; // No longer needed
+// import AbTestPrompt from './prompt.md?raw'; // No longer needed
+
+const frontmatter = {
+    title: "A/B Test Calculator",
+    description: "Calculate the statistical significance of your A/B tests.",
+};
+---
+
+<ToolDetailTemplate frontmatter={frontmatter}>
+    <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-lg border border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">
+                    Variation A (Control)
+                </h2>
+                <div class="mb-4">
+                    <label
+                        for="visitors-a"
+                        class="block text-sm font-medium text-gray-700"
+                        >Visitors</label
+                    >
+                    <input
+                        id="visitors-a"
+                        type="number"
+                        placeholder="e.g., 1000"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-2 px-3"
+                    />
+                </div>
+                <div class="mb-4">
+                    <label
+                        for="conversions-a"
+                        class="block text-sm font-medium text-gray-700"
+                        >Conversions</label
+                    >
+                    <input
+                        id="conversions-a"
+                        type="number"
+                        placeholder="e.g., 100"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-2 px-3"
+                    />
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-lg border border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">
+                    Variation B (Challenger)
+                </h2>
+                <div class="mb-4">
+                    <label
+                        for="visitors-b"
+                        class="block text-sm font-medium text-gray-700"
+                        >Visitors</label
+                    >
+                    <input
+                        id="visitors-b"
+                        type="number"
+                        placeholder="e.g., 1000"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-2 px-3"
+                    />
+                </div>
+                <div class="mb-4">
+                    <label
+                        for="conversions-b"
+                        class="block text-sm font-medium text-gray-700"
+                        >Conversions</label
+                    >
+                    <input
+                        id="conversions-b"
+                        type="number"
+                        placeholder="e.g., 120"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-2 px-3"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mb-8">
+            <button
+                id="calculate"
+                class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+            >
+                Calculate Significance
+            </button>
+        </div>
+
+        <div
+            id="results"
+            class="bg-white p-6 rounded-lg border border-gray-200"
+            style="display: none;"
+        >
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4 text-center">
+                Results
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div>
+                    <p class="text-sm font-medium text-gray-500">
+                        Conversion Rate (A)
+                    </p>
+                    <p id="cr-a" class="mt-1 text-lg font-bold text-gray-900">
+                        -
+                    </p>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-500">
+                        Conversion Rate (B)
+                    </p>
+                    <p id="cr-b" class="mt-1 text-lg font-bold text-gray-900">
+                        -
+                    </p>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-500">P-value</p>
+                    <p
+                        id="p-value"
+                        class="mt-1 text-lg font-bold text-gray-900"
+                    >
+                        -
+                    </p>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-500">Z-score</p>
+                    <p
+                        id="z-score"
+                        class="mt-1 text-lg font-bold text-gray-900"
+                    >
+                        -
+                    </p>
+                </div>
+            </div>
+            <div
+                class="mt-6 p-4 rounded-md bg-blue-50 text-blue-700 text-center"
+            >
+                <p id="conclusion"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Explainer Section (Hardcoded HTML) -->
+    <section id="explainer" class="mt-12 p-6 bg-white rounded-lg">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            How to Use This Tool
+        </h2>
+        <ol class="list-decimal list-inside space-y-2 text-gray-700 mb-6">
+            <li>
+                Input the number of visitors for your Control (A) and Variant
+                (B) groups.
+            </li>
+            <li>Input the number of conversions for each group.</li>
+            <li>
+                The calculator will output the conversion rates, the difference
+                between them, and the statistical significance (p-value) of your
+                results.
+            </li>
+        </ol>
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            Understanding A/B Testing
+        </h2>
+        <p class="mb-4 text-gray-700">
+            A/B testing, also known as split testing, is a method of comparing
+            two versions of a webpage or app against each other to determine
+            which one performs better. It's essentially an experiment where two
+            or more variants of a page are shown to users at random, and
+            statistical analysis is used to determine which variation performs
+            better for a given conversion goal.
+        </p>
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">Key Metrics</h2>
+        <ul class="list-disc list-inside space-y-2 text-gray-700 mb-6">
+            <li>
+                <strong>Visitors</strong>: The total number of unique users
+                exposed to a variant.
+            </li>
+            <li>
+                <strong>Conversions</strong>: The number of visitors who
+                completed the desired action (e.g., a purchase, a signup).
+            </li>
+            <li><strong>Conversion Rate</strong>: Conversions / Visitors.</li>
+        </ul>
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            Statistical Significance
+        </h2>
+        <p class="mb-4 text-gray-700">
+            Our calculator helps you determine if the difference in performance
+            between your A and B variants is statistically significant, meaning
+            it's unlikely to have occurred by random chance. This is crucial for
+            making data-driven decisions.
+        </p>
+        <p class="text-gray-700">
+            Remember, a statistically significant result doesn't always mean a
+            practically significant one. Always consider your business goals and
+            context.
+        </p>
+    </section>
+
+    <!-- Dynamic LLM Prompt Block -->
+    <section
+        id="dynamic-llm-prompt"
+        class="bg-blue-50 p-6 rounded-lg border border-blue-200 mt-12"
+    >
+        <h2 class="text-2xl font-semibold text-blue-800 mb-4">
+            AI Prompt for Deeper Analysis
+        </h2>
+        <p class="text-blue-700">
+            Copy the prompt below and paste it into your favorite LLM (like
+            ChatGPT or Claude) for a more detailed analysis based on your
+            results.
+        </p>
+        <pre
+            class="mt-4 p-4 bg-blue-100 rounded-md text-blue-900 overflow-x-auto"><code id="llm-prompt-text" /></pre>
+    </section>
+
+    <!-- Affiliate Recommendations Section -->
+    <section
+        id="affiliate-recommendations"
+        class="bg-white p-6 rounded-lg border border-gray-200 mt-12"
+    >
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            Recommended Products
+        </h2>
+        <p class="text-gray-600">
+            This section contains affiliate links to recommended products.
+        </p>
+        <div class="p-4 bg-gray-50 rounded-md border border-gray-200">
+            <ul>
+                <li>
+                    <a
+                        href="https://www.optimizely.com"
+                        class="text-blue-600 hover:underline">Optimizely</a
+                    >
+                </li>
+                <li>
+                    <a
+                        href="https://vwo.com"
+                        class="text-blue-600 hover:underline">VWO</a
+                    >
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Deep Dive Section -->
+    <section id="deep-dive" class="bg-white p-6 rounded-lg mt-12">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            Deep Dive on A/B Testing
+        </h2>
+        <p class="text-gray-600 mb-4">
+            The practice of A/B testing, which involves deploying two or more
+            variations of a digital experience to equivalent user segments to
+            determine which variation performs best against a predetermined
+            metric, is fundamental to data-driven growth. While often seen as a
+            tactical lever for incremental conversion bumps, its true strategic
+            value lies in validating core hypotheses about user behavior. To
+            move beyond optimizing surface-level design elements, effective A/B
+            testing must be anchored to the user’s "Job to Be Done" (JTBD). This
+            framework shifts the focus from who the customer is to why they hire
+            a product or feature, thereby transforming A/B tests into powerful
+            experiments that validate the underlying demand and motivation
+            driving the user journey.
+        </p>
+        <p class="text-gray-600 mb-4">
+            At the core of any successful A/B test is statistical rigor, which
+            addresses the primary job of the testing infrastructure: to prove
+            causality. Before launching any experiment, the test designer must
+            calculate the required sample size—the minimum number of users or
+            interactions needed per variation—using a process called power
+            analysis. This calculation is vital because it determines the test's
+            ability to detect a true difference, and it hinges on four critical
+            inputs. First is the Baseline Conversion Rate (or the mean of the
+            metric being tested), which represents the current performance of
+            the control variation. The second is the Minimum Detectable Effect
+            (MDE), the smallest relative improvement the business considers
+            valuable enough to implement, such as a 10% uplift. Third is the
+            Statistical Significance, typically set at 95%, which defines the
+            maximum acceptable risk of a Type I error (a false positive, meaning
+            concluding the variation won when it didn't). Finally, Statistical
+            Power, commonly set at 80%, determines the probability of correctly
+            detecting the MDE if that effect truly exists, thereby minimizing
+            the risk of a Type II error (a false negative). These four essential
+            variables are fed into specialized formulas (often a two-proportion
+            Z-test formula) to calculate the precise sample size required for
+            the experiment.
+        </p>
+        <p class="text-gray-600 mb-4">
+            Without this foundation, the result is mere observational data, not
+            a causal inference, leading to flawed strategic decisions.
+            Furthermore, tests must run for at least one full week, often two,
+            to account for cyclical user behavior and ensure observed effects
+            are sustained and reliable, thus truly proving that the winning
+            variation helps the user complete their "job" more effectively.
+        </p>
+        <p class="text-gray-600 mb-4">
+            Applying the JTBD perspective to the growth funnel illuminates
+            several strategic vantage points for A/B testing. The first is
+            Acquisition, where the user's primary "job" is often to understand
+            their options and decide if this product fits their need. For a B2B
+            SaaS company, a classic A/B test might involve altering the headline
+            and value proposition on a landing page. If the product’s JTBD is
+            "Help me save time on data reporting," the test should pit a
+            feature-centric headline (e.g., "New Fast Data Engine") against a
+            job-centric headline (e.g., "Cut Your Reporting Time by 50%"). The
+            success metric here is the Conversion Rate (CVR) to trial signup. If
+            the job-centric headline wins, it validates the hypothesis that
+            speaking directly to the user’s pain point is the superior
+            motivational trigger, providing invaluable strategic insight that
+            can be rolled out across all marketing copy.
+        </p>
+        <p class="text-gray-600 mb-4">
+            The second critical area is Activation/Onboarding, where the user’s
+            job transitions to successfully getting started and experiencing the
+            core value immediately. Consider a fintech application where the
+            JTBD is "Help me budget my monthly expenses simply." The onboarding
+            sequence is often tested to remove friction. An A/B test might
+            compare a single, mandatory five-step onboarding wizard (Variant A)
+            versus a minimal, optional one-step welcome screen that directs the
+            user immediately to the core budgeting feature (Variant B). The key
+            performance indicator is the Primary Action Handoff (PAH) rate—the
+            percentage of users who successfully connect their bank account, the
+            necessary prerequisite to budget. If Variant B significantly
+            improves the PAH rate, it proves that users prioritize
+            speed-to-value over guided setup, demonstrating that the activation
+            flow should be subordinate to the primary job the user hired the app
+            for.
+        </p>
+        <p class="text-gray-600 mb-4">
+            Finally, we look at Retention/Engagement, where the continuous job
+            is to feel competent and successful using the product over time. For
+            a content platform, the JTBD might be "Help me stay informed about
+            my niche industry." An A/B test could target inactive users by
+            varying the channel and timing of a re-engagement prompt. Variant A
+            might be a generic weekly email; Variant B might be a personalized
+            in-app notification that appears only when the user logs in and
+            highlights content specifically relevant to a topic they previously
+            viewed. The metric monitored is the 7-day or 30-day reactivation
+            rate. A successful Variant B confirms the hypothesis that
+            contextually relevant, personalized reminders are far more effective
+            than broad, untargeted communication because they assist the user in
+            completing their ongoing job of staying informed.
+        </p>
+        <p class="text-gray-600 mb-4">
+            In conclusion, A/B testing is much more than a tool for conversion
+            rate optimization; it is a mechanism for strategic learning. By
+            framing tests around the user’s Jobs to Be Done: from the initial
+            acquisition job of evaluating fit, to the activation job of rapid
+            value realization, and finally to the retention job of sustained
+            competency, growth teams can conduct high-leverage experiments. The
+            insights derived from these tests inform not just button colors or
+            copy, but the product strategy itself, ensuring that every design
+            decision directly contributes to helping the user successfully
+            complete the job they hired the product to do.
+        </p>
+    </section>
+
+    <script is:inline>
+        // A/B Test Calculator Logic
+        document.getElementById("calculate").addEventListener("click", () => {
+            const visitorsA = parseInt(
+                document.getElementById("visitors-a").value,
+            );
+            const conversionsA = parseInt(
+                document.getElementById("conversions-a").value,
+            );
+            const visitorsB = parseInt(
+                document.getElementById("visitors-b").value,
+            );
+            const conversionsB = parseInt(
+                document.getElementById("conversions-b").value,
+            );
+
+            if (
+                isNaN(visitorsA) ||
+                isNaN(conversionsA) ||
+                isNaN(visitorsB) ||
+                isNaN(conversionsB)
+            ) {
+                alert("Please fill in all fields with valid numbers.");
+                return;
+            }
+
+            const crA = conversionsA / visitorsA;
+            const crB = conversionsB / visitorsB;
+
+            const pooledCr =
+                (conversionsA + conversionsB) / (visitorsA + visitorsB);
+            const se = Math.sqrt(
+                pooledCr * (1 - pooledCr) * (1 / visitorsA + 1 / visitorsB),
+            );
+            const zScore = (crB - crA) / se;
+
+            // Two-tailed test
+            const pValue = 2 * (1 - standardNormalCdf(Math.abs(zScore)));
+
+            document.getElementById("cr-a").textContent =
+                `${(crA * 100).toFixed(2)}%`;
+            document.getElementById("cr-b").textContent =
+                `${(crB * 100).toFixed(2)}%`;
+            document.getElementById("p-value").textContent = pValue.toFixed(4);
+            document.getElementById("z-score").textContent = zScore.toFixed(4);
+
+            let conclusion = "";
+            if (pValue < 0.05) {
+                conclusion = `Variation B is statistically significant with a ${(((crB - crA) / crA) * 100).toFixed(2)}% improvement.`;
+            } else {
+                conclusion = "The result is not statistically significant.";
+            }
+            document.getElementById("conclusion").textContent = conclusion;
+
+            document.getElementById("results").style.display = "block";
+
+            // Update LLM prompt
+            const llmPrompt = `I ran an A/B test with the following results:\n\nVariation A (Control):\nVisitors: ${visitorsA}\nConversions: ${conversionsA}\nConversion Rate: ${(crA * 100).toFixed(2)}%\n\nVariation B (Challenger):\nVisitors: ${visitorsB}\nConversions: ${conversionsB}\nConversion Rate: ${(crB * 100).toFixed(2)}%\n\nThe p-value is ${pValue.toFixed(4)} and the z-score is ${zScore.toFixed(4)}.\n\n${conclusion}\n\nWhat are some possible next steps?`;
+            document.getElementById("llm-prompt-text").textContent = llmPrompt;
+        });
+
+        // Standard Normal Cumulative Distribution Function
+        function standardNormalCdf(x) {
+            const t = 1 / (1 + 0.2316419 * Math.abs(x));
+            const d = 0.3989423 * Math.exp((-x * x) / 2);
+            let prob =
+                d *
+                t *
+                (0.3193815 +
+                    t *
+                        (-0.3565638 +
+                            t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+            if (x > 0) {
+                prob = 1 - prob;
+            }
+            return prob;
+        }
+    </script>
+</ToolDetailTemplate>

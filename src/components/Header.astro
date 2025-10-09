@@ -2,64 +2,46 @@
 --- 
 // src/components/Header.astro
 ---
-<header>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="container">
-            <div class="navbar-brand">
-                <a class="navbar-item" href="/">
-                    <span class="has-text-weight-bold is-size-4">Growth Logs</span>
-                </a>
-
-                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
+<header class="bg-blue-500 bg-white border-b border-gray-200">
+    <nav class="container mx-auto px-4 lg:px-6 py-4">
+        <div class="flex flex-wrap justify-between items-center">
+            <a href="/" class="flex items-center">
+                <span class="text-xl font-semibold text-gray-900">Growth Logs</span>
+            </a>
+            <div class="flex items-center lg:order-2">
+                <button id="mobile-menu-button" type="button" class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+                </button>
             </div>
-
-            <div id="navbarBasicExample" class="navbar-menu">
-                <div class="navbar-end">
-                    <a href="/tools/" class="navbar-item">Tools</a>
-                    <a href="/experiments/" class="navbar-item">Experiments</a>
-                    <a href="/prompts/" class="navbar-item">Prompts</a>
-                    <a href="/guides/" class="navbar-item">Guides</a>
-                    <a href="/blog/" class="navbar-item">Blog</a>
-                </div>
+            <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu">
+                <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                    <li>
+                        <a href="/tools/" class="block py-2 pr-4 pl-3 text-gray-700 hover:text-indigo-600 lg:p-0">Tools</a>
+                    </li>
+                    <li>
+                        <a href="/experiments/" class="block py-2 pr-4 pl-3 text-gray-700 hover:text-indigo-600 lg:p-0">Experiments</a>
+                    </li>
+                    <li>
+                        <a href="/prompts/" class="block py-2 pr-4 pl-3 text-gray-700 hover:text-indigo-600 lg:p-0">Prompts</a>
+                    </li>
+                    <li>
+                        <a href="/guides/" class="block py-2 pr-4 pl-3 text-gray-700 hover:text-indigo-600 lg:p-0">Guides</a>
+                    </li>
+                    <li>
+                        <a href="/blog/" class="block py-2 pr-4 pl-3 text-gray-700 hover:text-indigo-600 lg:p-0">Blog</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
 </header>
 
 <script>
-    // Simple vanilla JS for mobile navbar toggle
-    document.addEventListener('DOMContentLoaded', () => {
-        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-        if ($navbarBurgers.length > 0) {
-            $navbarBurgers.forEach( el => {
-                el.addEventListener('click', () => {
-                    const target = el.dataset.target;
-                    const $target = document.getElementById(target);
-                    el.classList.toggle('is-active');
-                    $target.classList.toggle('is-active');
-                });
-            });
-        }
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
     });
 </script>
-
-<style>
-    .navbar {
-        background-color: transparent;
-        border-bottom: 1px solid var(--gray-200);
-    }
-    .navbar-item,
-    .navbar-burger span {
-        color: var(--gray-500);
-    }
-    .navbar-item:hover {
-        color: var(--brand-primary);
-    }
-    .navbar-brand .navbar-item {
-        color: var(--gray-900);
-    }
-</style>

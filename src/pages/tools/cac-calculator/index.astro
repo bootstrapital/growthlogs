@@ -1,0 +1,88 @@
+--- 
+// src/pages/tools/cac-calculator/index.astro
+import ToolDetailTemplate from '../../../layouts/ToolDetailTemplate.astro';
+// import { Content as CacExplainer } from "./explainer.md"; // No longer needed
+// import CacPrompt from './prompt.md?raw'; // No longer needed
+
+const frontmatter = {
+    title: 'Customer Acquisition Cost (CAC) Calculator',
+    description: 'Calculate your CAC to understand and optimize your marketing spend.',
+    // llmPrompt: `I calculated the Customer Acquisition Cost (CAC) with a total marketing spend of [marketingSpend] and [newCustomers] new customers. The CAC is $[cac].\n\nWhat are some strategies to reduce CAC?`,
+    productLinks: [
+        { name: "HubSpot CRM", url: "https://www.hubspot.com/crm" },
+        { name: "Salesforce", url: "https://www.salesforce.com" },
+    ],
+}
+---
+<ToolDetailTemplate frontmatter={frontmatter}>
+    <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+        <div class="grid grid-cols-1 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-lg border border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">CAC Inputs</h2>
+                <div class="mb-4">
+                    <label for="marketing-spend" class="block text-sm font-medium text-gray-700">Total Marketing & Sales Spend ($)</label>
+                    <input id="marketing-spend" type="number" placeholder="e.g., 10000" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-2 px-3">
+                </div>
+                <div class="mb-4">
+                    <label for="new-customers" class="block text-sm font-medium text-gray-700">New Customers Acquired</label>
+                    <input id="new-customers" type="number" placeholder="e.g., 500" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-2 px-3">
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mb-8">
+            <button id="calculate-cac" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                Calculate CAC
+            </button>
+        </div>
+
+        <div id="cac-results" class="bg-white p-6 rounded-lg border border-gray-200" style="display: none;">
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4 text-center">Results</h2>
+            <div class="text-center">
+                <p class="text-sm font-medium text-gray-500">Customer Acquisition Cost (CAC)</p>
+                <p id="cac-value" class="mt-1 text-lg font-bold text-gray-900">$0.00</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Explainer Section (Hardcoded HTML) -->
+    <section id="explainer" class="mt-12 p-6 bg-white rounded-lg shadow">
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">What is CAC?</h3>
+        <p class="mb-4 text-gray-700">Customer Acquisition Cost (CAC) is a metric used to determine the total average cost your company spends to acquire a new customer.</p>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">How to Use the Calculator</h3>
+        <ol class="list-decimal list-inside space-y-2 text-gray-700">
+            <li>Enter your total marketing and sales spend over a specific period.</li>
+            <li>Enter the number of new customers acquired during that same period.</li>
+            <li>The calculator will instantly show you your CAC.</li>
+        </ol>
+    </section>
+
+    <!-- Deep Dive Section -->
+    <section id="deep-dive" class="bg-white p-6 rounded-lg mt-12">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">Deep Dive on CAC</h2>
+        <p class="text-gray-600">This section is reserved for more in-depth articles, case studies, or advanced concepts related to Customer Acquisition Cost. Content can be added here directly or imported from another file.</p>
+        <div class="p-4 bg-gray-50 rounded-md border border-gray-200">
+            <p class="text-gray-700"><strong>Placeholder:</strong> Advanced CAC content goes here.</p>
+        </div>
+    </section>
+
+    <script is:inline>
+        document.getElementById('calculate-cac').addEventListener('click', () => {
+            const marketingSpend = parseFloat(document.getElementById('marketing-spend').value);
+            const newCustomers = parseInt(document.getElementById('new-customers').value);
+
+            if (isNaN(marketingSpend) || isNaN(newCustomers) || newCustomers <= 0) {
+                alert('Please enter valid numbers for marketing spend and new customers.');
+                return;
+            }
+
+            const cac = marketingSpend / newCustomers;
+            document.getElementById('cac-value').textContent = `$${cac.toFixed(2)}`;
+            document.getElementById('cac-results').style.display = 'block';
+
+            // Update LLM prompt (basic placeholder for now)
+            const llmPrompt = `I calculated the Customer Acquisition Cost (CAC) with a total marketing spend of $${marketingSpend.toFixed(2)} and ${newCustomers} new customers. The CAC is $${cac.toFixed(2)}.\n\nWhat are some strategies to reduce CAC?`;
+            document.getElementById('llm-prompt-text').textContent = llmPrompt;
+        });
+    </script>
+</ToolDetailTemplate>

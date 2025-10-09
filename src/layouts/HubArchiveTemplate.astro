@@ -1,35 +1,41 @@
+
 --- 
 // src/layouts/HubArchiveTemplate.astro
 import Layout from './Layout.astro';
-import Card from '../components/Card.astro';
 
 const { frontmatter } = Astro.props;
 const { title, description, items } = frontmatter;
 ---
 <Layout title={title} description={description}>
-    <section class="section">
-        <div class="container">
-            <h1 class="title is-1">{title}</h1>
-            <p class="subtitle is-4">{description}</p>
-            <hr>
-        </div>
-    </section>
+    <div class="container mx-auto px-4 lg:px-6 py-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900">{title}</h1>
+            {description && <p class="mt-4 text-lg text-gray-600">{description}</p>}
+        </header>
 
-    <section class="section">
-        <div class="container">
-            <div class="columns is-multiline">
-                {items && items.map(item => (
-                    <div class="column is-one-third">
-                        <Card 
-                            title={item.title} 
-                            description={item.description}
-                            url={item.url}
-                            author=""
-                            date=""
-                        />
-                    </div>
-                ))}
+        <div class="max-w-4xl mx-auto">
+            <div class="overflow-x-auto bg-white rounded-lg shadow overflow-y-hidden relative">
+                <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
+                    <thead>
+                        <tr class="text-left">
+                            <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs">Title</th>
+                            <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {items && items.map(item => (
+                            <tr class="hover:bg-gray-50">
+                                <td class="border-b border-gray-200 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    <a href={item.url} class="text-indigo-600 hover:text-indigo-900">{item.title}</a>
+                                </td>
+                                <td class="border-b border-gray-200 px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {item.description}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         </div>
-    </section>
+    </div>
 </Layout>
