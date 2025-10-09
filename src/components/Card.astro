@@ -15,7 +15,7 @@ const { title, description, url, author, date } = Astro.props;
         <div class="media">
             <div class="media-content">
                 <p class="title is-4">{title}</p>
-                <p class="subtitle is-6">By {author} on {date}</p>
+                {author && date && <p class="subtitle is-6">By {author} on {date}</p>}
             </div>
         </div>
 
@@ -33,6 +33,21 @@ const { title, description, url, author, date } = Astro.props;
         box-shadow: none;
         background-color: var(--grayscale-light-bg);
         border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        transition: box-shadow 0.2s ease-in-out;
+    }
+    .card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .card .card-content {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+    .card .content {
+        margin-top: auto;
     }
     .card .title {
         color: var(--grayscale-near-black);
