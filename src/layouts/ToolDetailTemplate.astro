@@ -1,59 +1,28 @@
-
----
-// Import required components and props
-import Sidebar from '../components/Sidebar.astro';
-import Footer from '../components/Footer.astro';
-
-// Import global styles
-import '../styles/global.css';
+--- 
+// src/layouts/ToolDetailTemplate.astro
+import Layout from './Layout.astro';
 
 export interface Props {
-	title: string;
-	description: string;
-  toolHeader: string;
-  explainerText: string;
-  promptTemplate: string;
-  productLinks: Array<{ name: string; url: string }>;
+  frontmatter: { // Expecting a frontmatter object now
+    title: string;
+    description: string;
+  };
 }
 
-const { title, description, toolHeader, explainerText, promptTemplate, productLinks } = Astro.props;
+const { frontmatter } = Astro.props;
 ---
 
-<!doctype html>
-<html lang="en" class="h-full">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body class="bg-white text-gray-700 antialiased h-full flex">
-        <Sidebar />
-		<div class="flex flex-col grow">
-			<main class="grow">
-        <h1>{toolHeader}</h1>
-        <div class="explainer-content">
-          <Fragment set:html={explainerText} />
+<Layout title={frontmatter.title} description={frontmatter.description}>
+    <div class="container mx-auto px-4 lg:px-6 py-8">
+        <div class="max-w-3xl mx-auto">
+            <header class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900">{frontmatter.title}</h1>
+                {frontmatter.description && <p class="mt-4 text-lg text-gray-600">{frontmatter.description}</p>}
+            </header>
+
+            <div class="space-y-12">
+                <slot />
+            </div>
         </div>
-        <section class="tool-prompt">
-          <h2>Prompt Template</h2>
-          <Fragment set:html={promptTemplate} />
-        </section>
-        <section class="tool-island">
-          <slot name="tool-island" />
-        </section>
-        <section class="product-links">
-          <h2>Related Products</h2>
-          <ul>
-            {productLinks.map((link) => (
-              <li><a href={link.url}>{link.name}</a></li>
-            ))}
-          </ul>
-        </section>
-			</main>
-			<Footer />
-		</div>
-	</body>
-</html>
+    </div>
+</Layout>
