@@ -1,0 +1,22 @@
+---
+import ToolDetailTemplate from '../../layouts/ToolDetailTemplate.astro';
+import AbTestExplainer from './explainer.md';
+import AbTestPrompt from './prompt.md';
+import CalculatorIsland from './CalculatorIsland.jsx';
+
+const pageTitle = "A/B Test Calculator";
+const pageDescription = "Calculate the statistical significance of your A/B tests.";
+const productLinks = [
+  { name: "Optimizely", url: "https://www.optimizely.com" },
+  { name: "VWO", url: "https://vwo.com" },
+];
+---
+
+<ToolDetailTemplate
+  toolHeader={pageTitle}
+  explainerText={AbTestExplainer.Content}
+  promptTemplate={AbTestPrompt.Content}
+  productLinks={productLinks}
+>
+  <CalculatorIsland client:load slot="tool-island" />
+</ToolDetailTemplate>

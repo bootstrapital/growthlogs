@@ -1,0 +1,1 @@
+What is the Customer Acquisition Cost (CAC) given a total marketing spend of [AMOUNT] and [NUMBER] new customers acquired?

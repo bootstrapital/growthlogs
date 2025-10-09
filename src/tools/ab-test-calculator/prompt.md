@@ -1,0 +1,1 @@
+Analyze the A/B test results: Control group had [CONTROL_VISITORS] visitors and [CONTROL_CONVERSIONS] conversions. Variant group had [VARIANT_VISITORS] visitors and [VARIANT_CONVERSIONS] conversions. Determine statistical significance.

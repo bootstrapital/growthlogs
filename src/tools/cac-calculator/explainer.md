@@ -1,11 +1,3 @@
----
-# src/pages/tools/cac-calculator.md
-layout: ../../layouts/ToolDetailTemplate.astro
-title: 'Customer Acquisition Cost (CAC) Calculator'
-description: 'Calculate your CAC to understand and optimize your marketing spend.'
-pubDate: 2025-10-09
----
-
 This is the explainer content for the CAC Calculator. You can write detailed instructions, definitions, and strategic advice here using Markdown.
 
 ### What is CAC?
